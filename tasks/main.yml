@@ -1,0 +1,4 @@
+---
+- import_tasks: precheck.yaml
+- include_tasks: create_tls_secret.yaml
+- include_tasks: create_scrape_secret.yaml

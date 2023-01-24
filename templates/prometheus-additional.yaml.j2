@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: {{ scrape_secret_name }}
+  namespace: {{ k8s_namespace }}
+type: Opaque
+stringData:
+  {{ scrape_secret_name_file }}: |
+{% for group in groups %}
+{% if group not in ['all', 'ungrouped', 'windows', 'kubernetes'] %}
+    - job_name: {{ group }}
+      scheme: https
+      tls_config:
+        ca_file: {{ tls_secret_mount_path }}/node_exporter.crt
+      basic_auth:
+        username: {{ prometheus_user }}
+        password: {{ prometheus_password }}
+      static_configs:
+      {{'- targets:'+'\n' }}
+{%- for vm in groups[group] -%}
+        {{ "        - "+vm }}:{{ ne_port }}
+{% endfor %}
+{% elif group == 'windows' %}
+    - job_name: {{ group }}
+      static_configs:
+      {{'- targets:'+'\n' }}
+{%- for vm in groups[group] -%}
+        {{ "        - "+vm }}:{{ ne_win_port }}
+{% endfor %}
+{% endif %}
+{% endfor %}

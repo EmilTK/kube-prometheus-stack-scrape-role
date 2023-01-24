@@ -1,0 +1,9 @@
+---
+ne_port: 9100
+ne_win_port: 9182
+k8s_namespace: monitoring
+k8s_secret_path: ~/kubernetes
+tls_secret_name: tls-secret.yaml
+scrape_secret_name: additional-scrape-configs
+scrape_secret_name_file: prometheus-additional.yaml
+tls_secret_mount_path: /etc/prometheus/certs/node
