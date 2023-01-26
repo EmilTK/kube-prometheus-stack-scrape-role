@@ -41,7 +41,8 @@ ne_port|Port node_exporter| 9100
 ne_win_port| Port windows_exporter in hostgroup "windows"| 9182
 k8s_namespace|Kubernetes namespace|monitoring
 k8s_secret_path|The kubernetes secrets storage directory| ~/kubernetes
-tls_secret_name|TLS secret name| tls-secret.yaml
+tls_secret_name|The kubernetes TLS secret name | kps-node-tls-secret
+tls_secret_name_file|TLS secret name file| tls-secret.yaml
 scrape_secret_name|Scrape secret name|additional-scrape-configs
 scrape_secret_name_file|The configuration file loaded in the prometheus container|prometheus-additional.yaml
 tls_secret_mount_path|The path to the certificate specified in the chart helm manifest|/etc/prometheus/certs/node
